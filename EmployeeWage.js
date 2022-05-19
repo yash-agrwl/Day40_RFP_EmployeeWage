@@ -26,6 +26,7 @@ function calculateWage(empHrs) {
 let totalEmpHrs = 0;
 let totalWorkingDays = 0;
 let empDailyWageArr = new Array();
+let empDailyWageMap = new Map();
 
 while (totalEmpHrs <= MAX_HRS_IN_MONTH && totalWorkingDays < MAX_WORKING_DAYS) {
     let empCheck = Math.floor(Math.random() * 10) % 3;
@@ -33,21 +34,26 @@ while (totalEmpHrs <= MAX_HRS_IN_MONTH && totalWorkingDays < MAX_WORKING_DAYS) {
     totalEmpHrs += empHrs;
     totalWorkingDays++;
     empDailyWageArr.push(calculateWage(empHrs));
+    empDailyWageMap.set(totalWorkingDays, calculateWage(empHrs));
 }
 
 let totalEmpWage = calculateWage(totalEmpHrs);
-console.log("Daily Wages Earned: " + empDailyWageArr);
 console.log("Monthly Employee Wage: " + totalEmpWage + "\nTotal Working Days: " + totalWorkingDays +
     "\nTotal Hrs worked: " + totalEmpHrs);
 
+console.log("\n-----------Array Data Structure-----------")
+console.log("UC6 - Daily Wages Earned using Array: ");
+console.log(empDailyWageArr);
+
 // Array Helper Functions
+console.log("\n-----------Array Helper Functions-----------");
 // UC 7A - Calculate total wage using Array forEach or reduce method.
 totalEmpWage = 0;
 function calcTotalWage(dailyWage) {
     totalEmpWage += dailyWage;
 }
 empDailyWageArr.forEach(calcTotalWage);
-console.log("\nUC7A - Total Emp Wage using forEach method: " + totalEmpWage);
+console.log("UC7A - Total Emp Wage using forEach method: " + totalEmpWage);
 
 function getTotalWage(totalWage, dailyWage) {
     return totalWage + dailyWage;
@@ -91,3 +97,9 @@ function totalDaysWorked(numOfDays, dailyWage) {
     return numOfDays;
 }
 console.log("UC 7G - Number of days Employee worked: " + empDailyWageArr.reduce(totalDaysWorked, 0));
+
+// UC 8 - Use Map to store the daily Wages and compute the total wage.
+console.log("\n-----------Map Data Structure-----------")
+console.log("UC8 - Daily Wages earned Using Map: ");
+console.log(empDailyWageMap);
+console.log("Total Emp Wage using Map: " + Array.from(empDailyWageMap.values()).reduce(getTotalWage, 0));
